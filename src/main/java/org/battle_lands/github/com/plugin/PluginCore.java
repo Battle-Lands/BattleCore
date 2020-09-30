@@ -39,7 +39,7 @@ public abstract class PluginCore extends JavaPlugin {
 
     public CommandMap getCommandMap() {
         if (commandMap == null)
-            commandMap = Reflections.getField(SimplePluginManager.class, "commandMap");
+            commandMap = Reflections.getField(getServer().getPluginManager(), "commandMap");
         return commandMap;
     }
 

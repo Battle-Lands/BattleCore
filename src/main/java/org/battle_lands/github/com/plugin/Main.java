@@ -2,11 +2,8 @@ package org.battle_lands.github.com.plugin;
 
 public class Main extends PluginCore {
 
+    @Override
     public void onPluginEnable() {
-
-    }
-
-    public void onPluginDisable() {
-
+        getLogger().info(getDescription().getDescription());
     }
 }
