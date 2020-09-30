@@ -43,7 +43,9 @@ public abstract class PluginCore extends JavaPlugin {
         return commandMap;
     }
 
-    public abstract void onPluginEnable();
+    public void onPluginEnable() {
+    }
 
-    public abstract void onPluginDisable();
+    public void onPluginDisable() {
+    }
 }
