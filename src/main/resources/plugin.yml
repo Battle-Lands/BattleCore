@@ -1,0 +1,4 @@
+name: 'BattleCore'
+main: 'org.battle_lands.github.com.plugin.PluginCore'
+version: '1.0-SNAPSHOT'
+description: 'Core for plugins to BattleLands'
