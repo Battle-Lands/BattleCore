@@ -5,7 +5,7 @@ import org.bukkit.World;
 
 public class Location {
 
-    public org.bukkit.Location unserializeLocation(String serialized) {
+    public static org.bukkit.Location unserializeLocation(String serialized) {
         String[] data = serialized.split(";");
         World world = Main.getInstance().getServer().getWorld(data[0]);
         double x = Double.parseDouble(data[1]);
@@ -16,7 +16,7 @@ public class Location {
         return new org.bukkit.Location(world, x, y, z, yaw, pitch);
     }
 
-    public String serializeLocation(org.bukkit.Location location) {
+    public static String serializeLocation(org.bukkit.Location location) {
         String[] data = {
           location.getWorld().getName(),
           Double.toString(location.getX()),
