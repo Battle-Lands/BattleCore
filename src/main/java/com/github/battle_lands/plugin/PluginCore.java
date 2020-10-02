@@ -1,12 +1,11 @@
-package org.battle_lands.github.com.plugin;
+package com.github.battle_lands.plugin;
 
-import org.battle_lands.github.com.reflection.Reflections;
+import com.github.battle_lands.reflection.Reflections;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class PluginCore extends JavaPlugin {
