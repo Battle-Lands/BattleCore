@@ -4,7 +4,7 @@ name: 'battlelands-cd-workflow'
 
 on:
   push:
-    branches: [ master ]
+    branches: [ nms-project-support ]
 
 jobs:
   build:
@@ -20,17 +20,19 @@ jobs:
       - name: Download spigot jar
         run: |
           curl ${URL_SPIGOT_CDN} -o ${SPIGOT_FILE_NAME}
-
-          mvn install:install-file \
-                      -Dfile=${SPIGOT_FILE_NAME} \
-                      -DgroupId=org.spigotmc \
-                      -DartifactId=spigot-nms \
-                      -Dversion=${SPIGOT_FILE_VERSION} \
-                      -Dpackaging=jar
         env:
           URL_SPIGOT_CDN: https://cdn.getbukkit.org/spigot/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar
           SPIGOT_FILE_NAME: spigot.jar
           SPIGOT_FILE_VERSION: 1.8.8-R0.1-SNAPSHOT
+
+      - name: Install spigot jar package to maven
+        run: |
+          mvn install:install-file \
+                      -Dfile=${{ env.SPIGOT_FILE_NAME }} \
+                      -DgroupId=org.spigotmc \
+                      -DartifactId=spigot-nms \
+                      -Dversion=${{ env.SPIGOT_FILE_VERSION }} \
+                      -Dpackaging=jar
 
       - name: Build with Maven
         run: |
@@ -38,9 +40,9 @@ jobs:
 
       - name: Setup project version
         run: |
-          MAVEN_PROJECT_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
-          echo "Debug maven project version $MAVEN_PROJECT_VERSION"
-          echo "::set-env name=PROJECT_VERSION::$MAVEN_PROJECT_VERSION"
+          echo "Debug maven project version ${MAVEN_PROJECT_VERSION}"
+        env:
+          PROJECT_VERSION: $(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
 
       - name: Create Release
         id: create_release
