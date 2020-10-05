@@ -1,6 +1,6 @@
-package com.github.battle_lands.plugin;
+package com.github.battle.core.plugin;
 
-import com.github.battle_lands.reflection.Reflections;
+import com.github.battle.core.reflection.Reflections;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;

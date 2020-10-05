@@ -1,4 +1,4 @@
-package com.github.battle_lands.plugin;
+package com.github.battle.core.plugin;
 
 public class Main extends PluginCore {
 

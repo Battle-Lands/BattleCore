@@ -1,4 +1,4 @@
-package com.github.battle_lands.serialization.location;
+package com.github.battle.core.serialization.location;
 
 import com.google.gson.*;
 import org.bukkit.Bukkit;

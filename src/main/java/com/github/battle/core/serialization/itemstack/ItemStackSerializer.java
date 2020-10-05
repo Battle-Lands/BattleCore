@@ -1,4 +1,4 @@
-package com.github.battle_lands.serialization.itemstack;
+package com.github.battle.core.serialization.itemstack;
 
 import com.google.gson.*;
 import org.bukkit.FireworkEffect;

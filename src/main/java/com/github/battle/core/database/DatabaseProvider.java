@@ -1,4 +1,4 @@
-package com.github.battle_lands.database;
+package com.github.battle.core.database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

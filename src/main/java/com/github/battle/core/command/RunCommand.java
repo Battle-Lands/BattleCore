@@ -1,4 +1,4 @@
-package com.github.battle_lands.command;
+package com.github.battle.core.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
