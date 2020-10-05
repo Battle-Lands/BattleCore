@@ -5,11 +5,10 @@ import com.google.common.base.Strings;
 public class ProgressBuilder {
 
     private final int current;
+    private final float percent;
     private int max;
     private int totalBars;
     private char symbol;
-    private final float percent;
-
     /**
      * Storage two colors
      * <p>

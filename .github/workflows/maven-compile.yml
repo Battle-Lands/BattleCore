@@ -4,7 +4,7 @@ name: 'battlelands-cd-workflow'
 
 on:
   push:
-    branches: [ nms-project-support ]
+    branches: [ master ]
 
 jobs:
   build:

@@ -10,9 +10,8 @@ import java.sql.SQLException;
 
 public class SQLRequester implements DatabaseProvider {
 
-    private Connection connection;
-
     private final File file;
+    private Connection connection;
 
     public SQLRequester(File file) {
         this.file = file;

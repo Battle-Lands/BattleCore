@@ -18,12 +18,12 @@ import java.util.List;
 public class EntityBuilder {
 
     private final EntityType entityType;
+    private final List<PotionEffect> potionEffects;
     private String name;
     private double maxHealth;
     private float health;
     private Location location;
     private boolean ai;
-    private final List<PotionEffect> potionEffects;
 
     public EntityBuilder(EntityType entityType, Location location) {
         this.entityType = entityType;
