@@ -1,6 +1,6 @@
-package com.github.battle_lands.database.requester;
+package com.github.battle.core.database.requester;
 
-import com.github.battle_lands.database.DatabaseProvider;
+import com.github.battle.core.database.DatabaseProvider;
 
 import java.io.File;
 import java.sql.Connection;

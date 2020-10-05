@@ -1,4 +1,4 @@
-package com.github.battle_lands.reflection;
+package com.github.battle.core.reflection;
 
 import org.bukkit.Bukkit;
 

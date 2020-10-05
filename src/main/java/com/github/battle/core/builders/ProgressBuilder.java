@@ -1,10 +1,10 @@
-package com.github.battle_lands.builders;
+package com.github.battle.core.builders;
 
 import com.google.common.base.Strings;
 
 public class ProgressBuilder {
 
-    private int current;
+    private final int current;
     private int max;
     private int totalBars;
     private char symbol;

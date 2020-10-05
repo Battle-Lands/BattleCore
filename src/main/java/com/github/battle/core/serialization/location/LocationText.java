@@ -1,6 +1,6 @@
-package com.github.battle_lands.serialization.location;
+package com.github.battle.core.serialization.location;
 
-import com.github.battle_lands.plugin.Main;
+import com.github.battle.core.plugin.Main;
 import org.bukkit.Location;
 import org.bukkit.World;
 

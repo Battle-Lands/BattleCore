@@ -1,6 +1,6 @@
-package com.github.battle_lands.database.requester;
+package com.github.battle.core.database.requester;
 
-import com.github.battle_lands.database.DatabaseProvider;
+import com.github.battle.core.database.DatabaseProvider;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,9 +20,9 @@ public class MySQLRequester implements DatabaseProvider {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection(
-                    "jdbc:mysql://" + credentials.host + ":" + credentials.port + "/"
-                            + credentials.database + "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true",
-                    credentials.user, credentials.password);
+              "jdbc:mysql://" + credentials.host + ":" + credentials.port + "/"
+                + credentials.database + "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true",
+              credentials.user, credentials.password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
