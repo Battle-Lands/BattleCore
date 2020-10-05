@@ -19,20 +19,18 @@ jobs:
 
       - name: Download spigot jar
         run: |
-          curl $URL_SPIGOT_CDN -o $SPIGOT_FILE_NAME
+          curl ${URL_SPIGOT_CDN} -o ${SPIGOT_FILE_NAME}
+
+          mvn install:install-file \
+                      -Dfile=${SPIGOT_FILE_NAME} \
+                      -DgroupId=org.spigotmc \
+                      -DartifactId=spigot-nms \
+                      -Dversion=${SPIGOT_FILE_VERSION} \
+                      -Dpackaging=jar
         env:
           URL_SPIGOT_CDN: https://cdn.getbukkit.org/spigot/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar
           SPIGOT_FILE_NAME: spigot.jar
           SPIGOT_FILE_VERSION: 1.8.8-R0.1-SNAPSHOT
-
-      - name: Install spigot on maven
-        run: |
-          mvn install:install-file \
-            -Dfile=$SPIGOT_FILE_NAME \
-            -DgroupId=org.spigotmc \
-            -DartifactId=spigot-nms \
-            -Dversion=$SPIGOT_FILE_VERSION \
-            -Dpackaging=jar
 
       - name: Build with Maven
         run: |
