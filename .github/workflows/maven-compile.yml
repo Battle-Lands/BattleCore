@@ -36,16 +36,20 @@ jobs:
         run: |
           mvn -T 2C -B package --file pom.xml
 
-      - name: Create Release and verify maven project version
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Setup project version
         run: |
           export PROJECT_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
           echo "Debug maven project version ${PROJECT_VERSION}"
+
+          echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${PROJECT_VERSION}
+          tag_name: ${{ env.PROJECT_VERSION }}
           release_name: "${{ format('{0} [Release #{1}]', github.event.head_commit.message, github.run_id) }}"
           body: |
             ## Github Actions - Continous Delivery
@@ -78,7 +82,7 @@ jobs:
             
             [id-ref-link]: ${{ github.event.head_commit.url }}
             [from-repository]: ${{ github.event.repository.url }}
-            [jitpack-url]: https://jitpack.io/#${{ github.repository }}/${PROJECT_VERSION}
+            [jitpack-url]: https://jitpack.io/#${{ github.repository }}/${{ env.PROJECT_VERSION }}
           draft: false
           prerelease: false
 
