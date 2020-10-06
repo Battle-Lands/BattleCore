@@ -48,10 +48,6 @@ jobs:
 
           echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
 
-      - name: Auto deploy project to github package
-        run: |
-          mvn deploy -Dregistry=https://maven.pkg.github.com/${{ env.github.repository }} -Dtoken=${{ secrets.GITHUB_TOKEN }}
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
