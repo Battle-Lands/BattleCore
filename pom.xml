@@ -8,6 +8,14 @@
     <artifactId>battle-core</artifactId>
     <version>1.0.1-SNAPSHOT</version>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>Maven packages</name>
+            <url>https://maven.pkg.github.com/Battle-Lands/BattleCore</url>
+        </repository>
+    </distributionManagement>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
