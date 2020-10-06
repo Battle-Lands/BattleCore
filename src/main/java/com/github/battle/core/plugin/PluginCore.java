@@ -1,29 +1,47 @@
 package com.github.battle.core.plugin;
 
-import com.github.battle.core.reflection.Reflections;
+import lombok.Getter;
+import me.saiintbrisson.bukkit.command.BukkitFrame;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandMap;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Logger;
+
+@Getter
 public abstract class PluginCore extends JavaPlugin {
 
-    private CommandMap commandMap;
+    private BukkitFrame bukkitFrame;
+
+    @Override
+    public void onLoad() {
+        this.onPluginLoad();
+    }
 
     @Override
     public void onEnable() {
-        super.onEnable();
         this.onPluginEnable();
+        this.bukkitFrame = new BukkitFrame(this);
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
         this.onPluginDisable();
         Bukkit.getScheduler().cancelTasks(this);
         HandlerList.unregisterAll(this);
+    }
+
+    public void onPluginLoad() {
+        //TODO: Override this method
+    }
+
+    public void onPluginEnable() {
+        //TODO: Override this method
+    }
+
+    public void onPluginDisable() {
+        //TODO: Override this method
     }
 
     public void registerListeners(Listener... listeners) {
@@ -31,20 +49,14 @@ public abstract class PluginCore extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(listener, this);
     }
 
-    public void registerCommands(Command... commands) {
-        for (Command command : commands)
-            getCommandMap().register("battlelands", command);
+    public void registerCommands(Object... commands) {
+        bukkitFrame.registerCommands(commands);
     }
 
-    public CommandMap getCommandMap() {
-        if (commandMap == null)
-            commandMap = Reflections.getField(getServer().getPluginManager(), "commandMap");
-        return commandMap;
-    }
-
-    public void onPluginEnable() {
-    }
-
-    public void onPluginDisable() {
+    public void info(String... messages) {
+        final Logger logger = getLogger();
+        for (String message : messages) {
+            logger.info(message);
+        }
     }
 }
