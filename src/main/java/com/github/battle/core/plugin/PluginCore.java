@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 @Getter
 public abstract class PluginCore extends JavaPlugin {
 
-    private BukkitFrame bukkitFrame;
+    private final BukkitFrame bukkitFrame = new BukkitFrame(this);
 
     @Override
     public void onLoad() {
@@ -22,7 +22,6 @@ public abstract class PluginCore extends JavaPlugin {
     @Override
     public void onEnable() {
         this.onPluginEnable();
-        this.bukkitFrame = new BukkitFrame(this);
     }
 
     @Override
