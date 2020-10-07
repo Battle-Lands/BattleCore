@@ -1,4 +1,4 @@
-package com.github.battle.core.builders;
+package com.github.battle.core.builder;
 
 import lombok.Getter;
 import net.minecraft.server.v1_8_R3.EntityLiving;

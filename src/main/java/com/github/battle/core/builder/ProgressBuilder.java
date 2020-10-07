@@ -1,4 +1,4 @@
-package com.github.battle.core.builders;
+package com.github.battle.core.builder;
 
 import com.google.common.base.Strings;
 
