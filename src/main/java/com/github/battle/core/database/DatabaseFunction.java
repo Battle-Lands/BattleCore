@@ -5,7 +5,7 @@ import java.util.function.Function;
 public interface DatabaseFunction<S, U> extends Function<S, U> {
 
     @Override
-    default U apply(S instance){
+    default U apply(S instance) {
         try {
             return safetyApply(instance);
         } catch (Exception e) {

@@ -37,7 +37,7 @@ public class MySQLRequester implements DatabaseProvider {
     @Override
     public Connection getConnection() {
         try {
-            if(connection != null && !connection.isClosed()) return connection;
+            if (connection != null && !connection.isClosed()) return connection;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class MySQLRequester implements DatabaseProvider {
 
     @Override
     public <T> T result(String query, DatabaseFunction<ResultSet, T> databaseFunction, Object... objects) {
-        try(PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             setStatementObjects(statement, objects);
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -73,7 +73,7 @@ public class MySQLRequester implements DatabaseProvider {
 
     @Override
     public void execute(String query, Object... objects) {
-        try (PreparedStatement statement = connection.prepareStatement(query)){
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             setStatementObjects(
               statement,
               objects
