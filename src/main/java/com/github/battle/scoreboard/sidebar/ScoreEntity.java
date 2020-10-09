@@ -42,7 +42,11 @@ public final class ScoreEntity {
     public ScoreEntity(@NonNull Plugin plugin, @NonNull String displayName) {
         this.scoreboard = new Scoreboard();
 
-        final String pluginName = plugin.getName().substring(0, 15);
+        String pluginName = plugin.getName();
+        if(pluginName.length() > 15) {
+            pluginName = pluginName.substring(0, 15);
+        }
+
         this.scoreboardObjective = scoreboard.registerObjective(pluginName, IScoreboardCriteria.b);
         scoreboardObjective.setDisplayName(displayName);
 
