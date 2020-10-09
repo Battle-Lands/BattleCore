@@ -6,7 +6,7 @@
 
     <groupId>com.github.battle-lands</groupId>
     <artifactId>battle-core</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
 
     <distributionManagement>
         <repository>
@@ -33,6 +33,12 @@
             <artifactId>spigot-nms</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.battle-lands.scoreboard</groupId>
+            <artifactId>scoreboard-framework</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
