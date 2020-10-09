@@ -1,50 +1,61 @@
 package com.github.battle.core.database.requester;
 
+import com.github.battle.core.database.DatabaseCredential;
+import com.github.battle.core.database.DatabaseFunction;
 import com.github.battle.core.database.DatabaseProvider;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
+@RequiredArgsConstructor
 public class MySQLRequester implements DatabaseProvider {
 
-    private final Credentials credentials;
+    private final static String MYSQL_URI_CONNECTION = "jdbc:mysql://%s:%s/%s" +
+      "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true";
+
+    private final DatabaseCredential credential;
     private Connection connection;
 
-    public MySQLRequester(Credentials credentials) {
-        this.credentials = credentials;
-    }
-
+    @SneakyThrows
     public void connect() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            this.connection = DriverManager.getConnection(
-              "jdbc:mysql://" + credentials.host + ":" + credentials.port + "/"
-                + credentials.database + "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true",
-              credentials.user, credentials.password);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+        Class.forName("com.mysql.jdbc.Driver");
+        final String mysqlConnectionUri = String.format(
+          MYSQL_URI_CONNECTION,
+          credential.getHost(),
+          credential.getPort(),
+          credential.getDatabase()
+        );
+
+        this.connection = DriverManager.getConnection(
+          mysqlConnectionUri,
+          credential.getUser(),
+          credential.getPassword()
+        );
     }
 
     @Override
     public Connection getConnection() {
         try {
-            if (this.connection == null || this.connection.isClosed())
-                connect();
-        } catch (SQLException sqlException) {
-            connect();
+            if(connection != null && !connection.isClosed()) return connection;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
-        return this.connection;
+        return null;
     }
 
     @Override
-    public ResultSet result(String query) {
-        try {
-            return getConnection().createStatement().executeQuery(query);
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+    public <T> T result(String query, DatabaseFunction<ResultSet, T> databaseFunction, Object... objects) {
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+            setStatementObjects(statement, objects);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet != null && resultSet.next()
+                  ? databaseFunction.apply(resultSet)
+                  : null;
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
             return null;
         }
     }
@@ -52,36 +63,30 @@ public class MySQLRequester implements DatabaseProvider {
     @Override
     public void close() {
         try {
-            if (this.connection != null)
-                this.connection.close();
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
     @Override
-    public void execute(String query) {
-        try {
-            if (this.connection != null && !this.connection.isClosed())
-                this.connection.createStatement().executeUpdate(query);
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+    public void execute(String query, Object... objects) {
+        try (PreparedStatement statement = connection.prepareStatement(query)){
+            setStatementObjects(
+              statement,
+              objects
+            ).execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
-    public static class Credentials {
-        private final String host;
-        private final int port;
-        private final String user;
-        private final String password;
-        private final String database;
-
-        public Credentials(String host, int port, String user, String password, String database) {
-            this.host = host;
-            this.port = port;
-            this.user = user;
-            this.password = password;
-            this.database = database;
+    public PreparedStatement setStatementObjects(PreparedStatement statement, Object[] objects) throws SQLException {
+        for (int index = 1; index < objects.length; index++) {
+            statement.setObject(index, objects[index]);
         }
+        return statement;
     }
 }
