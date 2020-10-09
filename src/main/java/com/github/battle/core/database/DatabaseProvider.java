@@ -23,7 +23,7 @@ public interface DatabaseProvider {
      * @param query line structure to execute in sql
      * @return result from searched
      */
-    <T> T result(String query, DatabaseFunction<ResultSet, T> databaseFunction, Object... objects);
+    ResultSet result(String query);
 
     /**
      * Close connection
@@ -33,5 +33,6 @@ public interface DatabaseProvider {
     /**
      * @param query execute query, update or some think like that
      */
-    void execute(String query, Object... objects);
+    void execute(String query);
+
 }
