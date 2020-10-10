@@ -34,7 +34,7 @@ public class Reflection {
 
     public static boolean setField(Object instance, Field field, Object value) {
         try {
-            if(!field.isAccessible()) field.setAccessible(true);
+            if (!field.isAccessible()) field.setAccessible(true);
             field.set(instance, value);
             return true;
         } catch (Exception e) {

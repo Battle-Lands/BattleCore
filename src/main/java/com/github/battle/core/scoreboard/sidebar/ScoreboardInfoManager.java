@@ -8,10 +8,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.minecraft.server.v1_8_R3.*;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,7 +77,7 @@ public final class ScoreboardInfoManager {
 
     public void sendBaseScoreboardInformation(Player player) {
         final ScoreboardPlayer scoreboardPlayer = getScoreboardPlayer(player);
-        if(!scoreboardPlayer.isSentScoreboardInformation()) {
+        if (!scoreboardPlayer.isSentScoreboardInformation()) {
             Reflection.sendPackets(
               player,
               removeScoreboardObjective,
@@ -90,7 +88,7 @@ public final class ScoreboardInfoManager {
             scoreboardPlayer.setSentScoreboardInformation(true);
         }
 
-        if(shouldUpdateDisplayName) {
+        if (shouldUpdateDisplayName) {
             Reflection.sendPacket(player, updateScoreboardObjective);
         }
     }
@@ -110,7 +108,7 @@ public final class ScoreboardInfoManager {
         final String oldLineFromScoreboardHistoryLines = scoreboardPlayer.getOldScoreboardLine(index);
 
         final String render = scoreboardRender.onRender(player, scoreboardScore);
-        if(oldLineFromScoreboardHistoryLines != null) {
+        if (oldLineFromScoreboardHistoryLines != null) {
             if (render.equalsIgnoreCase(oldLineFromScoreboardHistoryLines)) return;
             connection.sendPacket(removeScoreboardScore(oldLineFromScoreboardHistoryLines));
         }

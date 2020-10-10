@@ -20,7 +20,7 @@ public final class ScoreboardAPI {
         final Scoreboard scoreboard = new Scoreboard();
 
         String pluginName = plugin.getName();
-        if(pluginName.length() > 15) {
+        if (pluginName.length() > 15) {
             pluginName = pluginName.substring(0, 15);
         }
 
