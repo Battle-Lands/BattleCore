@@ -86,11 +86,11 @@ public class ReflectUtil {
         return null;
     }
 
-    public static Constructor getConstructor(Class<?> clazz, Class<?>... classes) {
+    public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... classes) {
         if (clazz == null) return null;
 
         try {
-            Constructor c = clazz.getDeclaredConstructor(classes);
+            Constructor<?> c = clazz.getDeclaredConstructor(classes);
             if (!c.isAccessible()) c.setAccessible(true);
             return c;
         } catch (NoSuchMethodException e) {
@@ -100,6 +100,6 @@ public class ReflectUtil {
 
     public static int getVersionNumber() {
         String number = VERSION.substring(VERSION.indexOf('_') + 1, VERSION.lastIndexOf('_'));
-        return Integer.valueOf(number);
+        return Integer.parseInt(number);
     }
 }
