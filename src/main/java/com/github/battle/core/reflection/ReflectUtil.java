@@ -20,7 +20,6 @@ public class ReflectUtil {
 
     public static Class<?> getNMSClass(String name) {
         if (name == null) return null;
-
         try {
             return Class.forName("net.minecraft.server." + VERSION + "." + name);
         } catch (ClassNotFoundException e) {
