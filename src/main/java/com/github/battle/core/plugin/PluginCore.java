@@ -1,5 +1,6 @@
 package com.github.battle.core.plugin;
 
+import com.github.battle.core.common.CredentialRegistry;
 import lombok.Getter;
 import lombok.NonNull;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
@@ -78,6 +79,10 @@ public abstract class PluginCore extends JavaPlugin {
         return servicesManager
           .getRegistration(clazz)
           .getProvider();
+    }
+
+    public CredentialRegistry getCredentialRegistry() {
+        return getService(CredentialRegistry.class);
     }
 
     public void info(String... messages) {
