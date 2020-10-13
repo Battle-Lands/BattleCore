@@ -46,7 +46,7 @@ public class Reflection {
     public static <T> T getField(@NonNull Class<?> clazz, @NonNull String fieldName) {
         try {
             final Field declaredField = clazz.getDeclaredField(fieldName);
-            if(!declaredField.isAccessible()) declaredField.setAccessible(true);
+            if (!declaredField.isAccessible()) declaredField.setAccessible(true);
             return ((T) declaredField.get(null));
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -57,7 +57,7 @@ public class Reflection {
     public static <T> T getField(@NonNull Object instance, @NonNull String fieldName) {
         try {
             Field declaredField = instance.getClass().getDeclaredField(fieldName);
-            if(!declaredField.isAccessible()) declaredField.setAccessible(true);
+            if (!declaredField.isAccessible()) declaredField.setAccessible(true);
             return (T) declaredField.get(instance);
         } catch (Exception exception) {
             exception.printStackTrace();
