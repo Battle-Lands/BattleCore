@@ -24,7 +24,7 @@ public class Reflection {
         }
     }
 
-    public static void setNonField(@NonNull Object instance, @NonNull String fieldName, Object value) {
+    public static void setNonField(Object instance, String fieldName, Object value) {
         try {
             setField(instance, fieldName, value);
         } catch (Exception exception) {
@@ -43,13 +43,24 @@ public class Reflection {
         }
     }
 
-    public static <T> T getField(Object instance, String fieldName) {
+    public static <T> T getField(@NonNull Class<?> clazz, @NonNull String fieldName) {
         try {
-            Field field = instance.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return (T) field.get(instance);
-        } catch (Exception e) {
-            e.printStackTrace();
+            final Field declaredField = clazz.getDeclaredField(fieldName);
+            if(!declaredField.isAccessible()) declaredField.setAccessible(true);
+            return ((T) declaredField.get(null));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    public static <T> T getField(@NonNull Object instance, @NonNull String fieldName) {
+        try {
+            Field declaredField = instance.getClass().getDeclaredField(fieldName);
+            if(!declaredField.isAccessible()) declaredField.setAccessible(true);
+            return (T) declaredField.get(instance);
+        } catch (Exception exception) {
+            exception.printStackTrace();
             return null;
         }
     }

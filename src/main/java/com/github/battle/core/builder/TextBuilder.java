@@ -49,8 +49,8 @@ public class TextBuilder {
 
     public TextBuilder build(Player player) {
         try {
-            Class iChatBaseComponent = ReflectUtil.getNMSClass("IChatBaseComponent");
-            Class packetPlayOutTitle = ReflectUtil.getNMSClass("PacketPlayOutTitle");
+            Class<?> iChatBaseComponent = ReflectUtil.getNMSClass("IChatBaseComponent");
+            Class<?> packetPlayOutTitle = ReflectUtil.getNMSClass("PacketPlayOutTitle");
 
             Constructor<?> constructor = packetPlayOutTitle.getConstructor(
               packetPlayOutTitle.getDeclaredClasses()[0],

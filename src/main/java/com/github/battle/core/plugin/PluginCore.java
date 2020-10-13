@@ -1,5 +1,6 @@
 package com.github.battle.core.plugin;
 
+import com.github.battle.core.database.DatabaseCredential;
 import lombok.Getter;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import me.saiintbrisson.minecraft.InventoryFrame;
@@ -44,6 +45,12 @@ public abstract class PluginCore extends JavaPlugin {
 
     public void onPluginDisable() {
         //TODO: Override this method
+    }
+
+    public DatabaseCredential getCredentialsForMysql() {
+        return getPlugin(BattleCorePlugin.class)
+          .getCredentialsForMysql()
+          .clone();
     }
 
     public void registerListeners(Listener... listeners) {
