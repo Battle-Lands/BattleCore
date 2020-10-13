@@ -18,7 +18,7 @@ public class MySQLRequester implements DatabaseProvider {
     private Connection connection;
 
     @SneakyThrows
-    public void connect() {
+    public MySQLRequester connect() {
         Class.forName("com.mysql.jdbc.Driver");
         final String mysqlConnectionUri = String.format(
           MYSQL_URI_CONNECTION,
@@ -32,6 +32,13 @@ public class MySQLRequester implements DatabaseProvider {
           credential.getUser(),
           credential.getPassword()
         );
+
+        return this;
+    }
+
+    @Override
+    public boolean hasConnection() {
+        return getConnection() != null;
     }
 
     @Override

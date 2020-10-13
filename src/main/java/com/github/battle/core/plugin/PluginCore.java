@@ -1,7 +1,7 @@
 package com.github.battle.core.plugin;
 
-import com.github.battle.core.database.DatabaseCredential;
 import lombok.Getter;
+import lombok.NonNull;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import me.saiintbrisson.minecraft.InventoryFrame;
 import org.bukkit.Bukkit;
@@ -9,6 +9,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.ServicePriority;
+import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -16,6 +18,7 @@ import java.util.logging.Logger;
 @Getter
 public abstract class PluginCore extends JavaPlugin {
 
+    private final ServicesManager servicesManager = Bukkit.getServicesManager();
     private final BukkitFrame bukkitFrame = new BukkitFrame(this);
 
     @Override
@@ -47,12 +50,6 @@ public abstract class PluginCore extends JavaPlugin {
         //TODO: Override this method
     }
 
-    public DatabaseCredential getCredentialsForMysql() {
-        return getPlugin(BattleCorePlugin.class)
-          .getCredentialsForMysql()
-          .clone();
-    }
-
     public void registerListeners(Listener... listeners) {
         final PluginManager pluginManager = Bukkit.getPluginManager();
         for (Listener listener : listeners) {
@@ -66,6 +63,21 @@ public abstract class PluginCore extends JavaPlugin {
 
     public void registerListenerFromInventory(Plugin plugin) {
         new InventoryFrame(plugin).registerListener();
+    }
+
+    public <T> void registerService(@NonNull T object) {
+        servicesManager.register(
+          ((Class<T>) object.getClass()),
+          object,
+          this,
+          ServicePriority.Normal
+        );
+    }
+
+    public <T> T getService(@NonNull Class<T> clazz) {
+        return servicesManager
+          .getRegistration(clazz)
+          .getProvider();
     }
 
     public void info(String... messages) {
