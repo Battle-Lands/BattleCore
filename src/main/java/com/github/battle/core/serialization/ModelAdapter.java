@@ -1,4 +1,4 @@
-package com.github.battle.core.common;
+package com.github.battle.core.serialization;
 
 import javax.annotation.Nullable;
 
