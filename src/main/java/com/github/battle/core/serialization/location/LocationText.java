@@ -6,7 +6,7 @@ import org.bukkit.World;
 
 public class LocationText {
 
-    public static Location unserializeLocation(String serialized) {
+    public static Location deserializeLocation(String serialized) {
         String[] data = serialized.split(";");
         World world = Bukkit.getWorld(data[0]);
         double x = Double.parseDouble(data[1]);

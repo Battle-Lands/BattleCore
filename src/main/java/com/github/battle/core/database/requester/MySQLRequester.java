@@ -59,7 +59,7 @@ public class MySQLRequester implements DatabaseProvider {
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet != null && resultSet.next()
                   ? databaseFunction.apply(resultSet)
-                  : null;
+                  : databaseFunction.apply(null);
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -91,8 +91,8 @@ public class MySQLRequester implements DatabaseProvider {
     }
 
     public PreparedStatement setStatementObjects(PreparedStatement statement, Object[] objects) throws SQLException {
-        for (int index = 1; index < objects.length; index++) {
-            statement.setObject(index, objects[index]);
+        for (int index = 0; index < objects.length; index++) {
+            statement.setObject(index+1, objects[index]);
         }
         return statement;
     }
