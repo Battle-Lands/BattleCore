@@ -1,6 +1,9 @@
 package com.github.battle.core.plugin;
 
+<<<<<<< HEAD
 import com.github.battle.core.common.CredentialRegistry;
+=======
+>>>>>>> fbfddbb44770daa2287c9b7d3c59f4c35c7a911f
 import lombok.Getter;
 import lombok.NonNull;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
