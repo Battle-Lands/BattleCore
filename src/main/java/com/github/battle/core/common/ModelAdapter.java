@@ -1,7 +1,5 @@
 package com.github.battle.core.common;
 
-import lombok.NonNull;
-
 import javax.annotation.Nullable;
 
 public interface ModelAdapter<T, S> {
@@ -11,7 +9,7 @@ public interface ModelAdapter<T, S> {
      *
      * @param instance to adapt instance
      * @return instance of adapted object
-     * @exception Exception safety block
+     * @throws Exception safety block
      */
     T adaptModel(@Nullable S instance) throws Exception;
 }

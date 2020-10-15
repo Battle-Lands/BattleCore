@@ -92,7 +92,7 @@ public class MySQLRequester implements DatabaseProvider {
 
     public PreparedStatement setStatementObjects(PreparedStatement statement, Object[] objects) throws SQLException {
         for (int index = 0; index < objects.length; index++) {
-            statement.setObject(index+1, objects[index]);
+            statement.setObject(index + 1, objects[index]);
         }
         return statement;
     }

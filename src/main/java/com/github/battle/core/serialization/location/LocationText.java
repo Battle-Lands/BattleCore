@@ -7,26 +7,30 @@ import org.bukkit.World;
 public class LocationText {
 
     public static Location deserializeLocation(String serialized) {
-        String[] data = serialized.split(";");
-        World world = Bukkit.getWorld(data[0]);
-        double x = Double.parseDouble(data[1]);
-        double y = Double.parseDouble(data[2]);
-        double z = Double.parseDouble(data[3]);
-        float yaw = Float.parseFloat(data[4]);
-        float pitch = Float.parseFloat(data[5]);
+        final String[] data = serialized.split(";");
+        final World world = Bukkit.getWorld(data[0]);
+
+        final double x = Double.parseDouble(data[1]);
+        final double y = Double.parseDouble(data[2]);
+        final double z = Double.parseDouble(data[3]);
+
+        final float yaw = Float.parseFloat(data[4]);
+        final float pitch = Float.parseFloat(data[5]);
+
         return new Location(world, x, y, z, yaw, pitch);
     }
 
     public static String serializeLocation(Location location) {
-        String[] data = {
+        final String[] stringData = {
           location.getWorld().getName(),
-          Double.toString(location.getX()),
-          Double.toString(location.getY()),
-          Double.toString(location.getZ()),
-          Float.toString(location.getYaw()),
-          Float.toString(location.getPitch())
+          String.valueOf(location.getBlockX()),
+          String.valueOf(location.getBlockY()),
+          String.valueOf(location.getBlockZ()),
+          String.valueOf(Math.round(location.getYaw())),
+          String.valueOf(Math.round(location.getPitch()))
         };
-        return String.join(";", data);
+
+        return String.join(";", stringData);
     }
 
 }
