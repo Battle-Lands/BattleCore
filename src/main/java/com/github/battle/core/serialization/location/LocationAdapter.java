@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 /**
  * A gson adapter for {@link org.bukkit.Location}.
  *
- * @author Sasuke & Heroslender
+ * @author Sasuke and Heroslender
  */
 public class LocationAdapter implements JsonDeserializer<Location>, JsonSerializer<Location> {
 
