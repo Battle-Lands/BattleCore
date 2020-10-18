@@ -11,7 +11,6 @@ import java.sql.SQLException;
  * @author Kewilleen Gomes
  * @website https://github.com/kewilleen
  */
-
 public interface DatabaseProvider {
 
     /**
