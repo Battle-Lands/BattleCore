@@ -1,9 +1,14 @@
-package com.github.battle.core.serialization.location;
+package com.github.battle.core.serialization.location.text;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+/**
+ * A converter text location for {@link org.bukkit.Location}.
+ *
+ * @author Kewilleen Gomes
+ */
 public class LocationText {
 
     public static Location deserializeLocation(String serialized) {
