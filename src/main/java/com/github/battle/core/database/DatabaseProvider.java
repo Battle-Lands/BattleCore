@@ -62,6 +62,11 @@ public interface DatabaseProvider {
     boolean hasConnection();
 
     /**
+     * @param queries execute a query without preparedstatment
+     */
+    void execute(@NonNull String... queries);
+
+    /**
      * @param query   execute query, update or some think like that
      * @param objects array to sync with result set
      */
