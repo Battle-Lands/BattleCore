@@ -11,7 +11,6 @@ import java.sql.SQLException;
  * @author Kewilleen Gomes
  * @website https://github.com/kewilleen
  */
-
 public interface DatabaseProvider {
 
     /**
@@ -62,11 +61,15 @@ public interface DatabaseProvider {
     boolean hasConnection();
 
     /**
-     * @param queries execute a query without preparedstatment
+     * Execute update without prepared statement
+     *
+     * @param queries execute a query without prepared statement
      */
-    void execute(@NonNull String... queries);
+    void executeQueries(@NonNull String... queries);
 
     /**
+     * Execute update with prepared statement
+     *
      * @param query   execute query, update or some think like that
      * @param objects array to sync with result set
      */

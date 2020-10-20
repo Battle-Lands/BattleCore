@@ -37,5 +37,4 @@ public class LocationText {
 
         return String.join(";", stringData);
     }
-
 }
