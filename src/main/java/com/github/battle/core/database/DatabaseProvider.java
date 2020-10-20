@@ -65,7 +65,7 @@ public interface DatabaseProvider {
      *
      * @param queries execute a query without prepared statement
      */
-    void execute(@NonNull String... queries);
+    void executeQueries(@NonNull String... queries);
 
     /**
      * Execute update with prepared statement
