@@ -36,9 +36,8 @@ public final class MySQLRequester implements DatabaseProvider {
     @Override
     public void execute(@NonNull String... queries) {
         for (String query : queries) {
-            try {
-                if (hasConnection())
-                    getConnection().createStatement().execute(query);
+            try (Statement statement = connection.createStatement()){
+                statement.execute(query);
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
