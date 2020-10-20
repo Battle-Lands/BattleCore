@@ -1,10 +1,9 @@
 package com.github.battle.core.serialization.itemstack.text;
 
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * A converter text ItemStack for {@link org.bukkit.inventory.ItemStack}.
@@ -24,7 +23,7 @@ public class ItemStackText {
     private static String serializeItemMeta(ItemStack itemStack) {
         if (itemStack.hasItemMeta()) {
             ItemMeta itemMeta = itemStack.getItemMeta();
-            String[] stringMeta = new String[5];
+            String[] stringMeta = new String[4];
 
             if (itemMeta.hasDisplayName())
                 stringMeta[0] = itemMeta.getDisplayName();
@@ -32,14 +31,31 @@ public class ItemStackText {
             if (itemMeta.hasLore())
                 stringMeta[1] = String.join(",", itemMeta.getLore());
 
-            return Stream.of(stringMeta)
-              .filter(s -> s != null && !s.isEmpty())
-              .collect(Collectors.joining(";"));
+            if (itemMeta.hasEnchants()) {
+                StringBuilder enchantments = new StringBuilder();
+                for (Enchantment enchantment : itemMeta.getEnchants().keySet()) {
+                    String name = enchantment.getName();
+                    int level = itemMeta.getEnchants().get(enchantment);
+                    enchantments.append(String.join(":", name, convertString(level))).append(",");
+                }
+                if (enchantments.length() > 0)
+                    enchantments.delete(enchantments.length() - 1, enchantments.length());
+                stringMeta[2] = enchantments.toString();
+            }
+            if (!itemMeta.getItemFlags().isEmpty()) {
+                StringBuilder flags = new StringBuilder();
+                for (ItemFlag flag : itemMeta.getItemFlags())
+                    flags.append(flag.name()).append(",");
+                if (flags.length() > 0)
+                    flags.delete(flags.length() - 1, flags.length());
+                stringMeta[3] = flags.toString();
+            }
+            return String.join(";", stringMeta);
         }
         return "";
     }
 
-    private static String serializeSimpleItemStack(ItemStack itemStack) {
+    public static String serializeSimpleItemStack(ItemStack itemStack) {
         return String.join(";", new String[]{
           itemStack.getType().name(),
           convertString(itemStack.getDurability()),
