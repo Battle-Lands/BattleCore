@@ -22,7 +22,6 @@ public abstract class PluginCore extends JavaPlugin {
 
     private final ServicesManager servicesManager = Bukkit.getServicesManager();
     private final BukkitFrame bukkitFrame = new BukkitFrame(this);
-    private final ViewFrame viewFrame = new ViewFrame(this);
 
     @Override
     public void onLoad() {
@@ -39,6 +38,7 @@ public abstract class PluginCore extends JavaPlugin {
         this.onPluginDisable();
         Bukkit.getScheduler().cancelTasks(this);
         HandlerList.unregisterAll(this);
+        unregisterAllServices(this);
     }
 
     public void onPluginLoad() {
@@ -64,10 +64,6 @@ public abstract class PluginCore extends JavaPlugin {
         bukkitFrame.registerCommands(commands);
     }
 
-    public void registerInventoryListener(@NonNull View... views) {
-        viewFrame.addView(views);
-    }
-
     public <T> void registerService(@NonNull T object) {
         servicesManager.register(
           ((Class<T>) object.getClass()),
@@ -75,6 +71,10 @@ public abstract class PluginCore extends JavaPlugin {
           this,
           ServicePriority.Normal
         );
+    }
+
+    public void unregisterAllServices(@NonNull Plugin plugin) {
+        servicesManager.unregisterAll(plugin);
     }
 
     public <T> T getService(@NonNull Class<T> clazz) {
@@ -86,6 +86,8 @@ public abstract class PluginCore extends JavaPlugin {
     public CredentialRegistry getCredentialRegistry() {
         return getService(CredentialRegistry.class);
     }
+
+    public ViewFrame getViewFrameService() { return getService(ViewFrame.class); }
 
     public void info(String... messages) {
         final Logger logger = getLogger();

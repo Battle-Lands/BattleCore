@@ -1,6 +1,7 @@
 package com.github.battle.core.plugin;
 
 import com.github.battle.core.common.CredentialRegistry;
+import me.saiintbrisson.minecraft.ViewFrame;
 
 public class BattleCorePlugin extends PluginCore {
 
@@ -11,5 +12,6 @@ public class BattleCorePlugin extends PluginCore {
 
         final CredentialRegistry credentialRegistry = new CredentialRegistry(getConfig());
         registerService(credentialRegistry);
+        registerService(new ViewFrame(this));
     }
 }

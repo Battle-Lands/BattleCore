@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.github.DevNatan</groupId>
             <artifactId>inventory-framework</artifactId>
-            <version>43074d61ba</version>
+            <version>73a141d6e1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
