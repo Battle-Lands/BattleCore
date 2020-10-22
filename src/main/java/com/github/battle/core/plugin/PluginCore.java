@@ -4,7 +4,8 @@ import com.github.battle.core.common.CredentialRegistry;
 import lombok.Getter;
 import lombok.NonNull;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
-import me.saiintbrisson.minecraft.InventoryFrame;
+import me.saiintbrisson.minecraft.View;
+import me.saiintbrisson.minecraft.ViewFrame;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -21,6 +22,7 @@ public abstract class PluginCore extends JavaPlugin {
 
     private final ServicesManager servicesManager = Bukkit.getServicesManager();
     private final BukkitFrame bukkitFrame = new BukkitFrame(this);
+    private final ViewFrame viewFrame = new ViewFrame(this);
 
     @Override
     public void onLoad() {
@@ -62,8 +64,8 @@ public abstract class PluginCore extends JavaPlugin {
         bukkitFrame.registerCommands(commands);
     }
 
-    public void registerListenerFromInventory(Plugin plugin) {
-        new InventoryFrame(plugin).registerListener();
+    public void registerInventoryListener(@NonNull View... views) {
+        viewFrame.addView(views);
     }
 
     public <T> void registerService(@NonNull T object) {
