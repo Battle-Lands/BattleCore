@@ -1,5 +1,6 @@
 package com.github.battle.core.serialization.itemstack.text;
 
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -67,4 +68,7 @@ public class ItemStackText {
         return String.valueOf(object);
     }
 
+    public static ItemStack deserialize(String serialize) {
+        return new ItemStack(Material.AIR);
+    }
 }
