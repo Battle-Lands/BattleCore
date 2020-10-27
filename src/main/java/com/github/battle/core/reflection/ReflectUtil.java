@@ -78,23 +78,12 @@ public class ReflectUtil {
         return null;
     }
 
-<<<<<<< HEAD
-    public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... classes) {
-        if (clazz == null) return null;
-
-        try {
-            Constructor<?> c = clazz.getDeclaredConstructor(classes);
-            if (!c.isAccessible()) c.setAccessible(true);
-            return c;
-        } catch (NoSuchMethodException e) {
-=======
     public static Constructor<?> getConstructor(@NonNull Class<?> clazz, Class<?>... classes) {
         try {
             Constructor<?> declaredConstructor = clazz.getDeclaredConstructor(classes);
             if (!declaredConstructor.isAccessible()) declaredConstructor.setAccessible(true);
             return declaredConstructor;
         } catch (NoSuchMethodException ignored) {
->>>>>>> 632babbd599d38509b7f207d5ad5dade431a1d5b
             return null;
         }
     }
