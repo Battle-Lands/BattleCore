@@ -24,7 +24,11 @@ public class Reflection {
         }
     }
 
+<<<<<<< HEAD
     public static void setNonField(@NonNull Object instance, @NonNull String fieldName, Object value) {
+=======
+    public static void setNonField(Object instance, String fieldName, Object value) {
+>>>>>>> 632babbd599d38509b7f207d5ad5dade431a1d5b
         try {
             setField(instance, fieldName, value);
         } catch (Exception exception) {
@@ -43,6 +47,7 @@ public class Reflection {
         }
     }
 
+<<<<<<< HEAD
     public static <T> T getField(Object instance, String fieldName) {
         try {
             Field field = instance.getClass().getDeclaredField(fieldName);
@@ -50,6 +55,26 @@ public class Reflection {
             return (T) field.get(instance);
         } catch (Exception e) {
             e.printStackTrace();
+=======
+    public static <T> T getField(@NonNull Class<?> clazz, @NonNull String fieldName) {
+        try {
+            final Field declaredField = clazz.getDeclaredField(fieldName);
+            if (!declaredField.isAccessible()) declaredField.setAccessible(true);
+            return ((T) declaredField.get(null));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    public static <T> T getField(@NonNull Object instance, @NonNull String fieldName) {
+        try {
+            Field declaredField = instance.getClass().getDeclaredField(fieldName);
+            if (!declaredField.isAccessible()) declaredField.setAccessible(true);
+            return (T) declaredField.get(instance);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+>>>>>>> 632babbd599d38509b7f207d5ad5dade431a1d5b
             return null;
         }
     }

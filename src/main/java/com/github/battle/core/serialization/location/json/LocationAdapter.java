@@ -1,4 +1,4 @@
-package com.github.battle.core.serialization.location;
+package com.github.battle.core.serialization.location.json;
 
 import com.google.gson.*;
 import org.bukkit.Bukkit;
@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 /**
  * A gson adapter for {@link org.bukkit.Location}.
  *
- * @author Sasuke & Heroslender
+ * @author Sasuke and Heroslender
  */
 public class LocationAdapter implements JsonDeserializer<Location>, JsonSerializer<Location> {
 

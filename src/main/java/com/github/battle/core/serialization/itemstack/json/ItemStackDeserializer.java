@@ -1,4 +1,4 @@
-package com.github.battle.core.serialization.itemstack;
+package com.github.battle.core.serialization.itemstack.json;
 
 import com.google.gson.*;
 import org.bukkit.Color;
