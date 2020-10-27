@@ -12,7 +12,7 @@ import java.sql.*;
 public final class MySQLRequester implements DatabaseProvider {
 
     private final static String MYSQL_URI_CONNECTION = "jdbc:mysql://%s:%s/%s" +
-      "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true";
+      "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useTimezone=true&serverTimezone=America/Sao_Paulo";
 
     private final DatabaseCredential credential;
     private Connection connection;
@@ -30,6 +30,17 @@ public final class MySQLRequester implements DatabaseProvider {
         } catch (SQLException exception) {
             exception.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public void executeQueries(@NonNull String... queries) {
+        for (String query : queries) {
+            try (Statement statement = connection.createStatement()) {
+                statement.execute(query);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
         }
     }
 

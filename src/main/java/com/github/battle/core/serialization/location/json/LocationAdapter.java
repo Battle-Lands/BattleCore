@@ -1,4 +1,4 @@
-package com.github.battle.core.serialization.location;
+package com.github.battle.core.serialization.location.json;
 
 import com.google.gson.*;
 import org.bukkit.Bukkit;
