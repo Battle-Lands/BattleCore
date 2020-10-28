@@ -6,6 +6,8 @@ import lombok.NonNull;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import me.saiintbrisson.minecraft.InventoryFrame;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -29,6 +31,7 @@ public abstract class PluginCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        bukkitFrame.registerAdapter(OfflinePlayer.class, PluginCore::getOfflinePlayer);
         this.onPluginEnable();
     }
 
@@ -90,5 +93,17 @@ public abstract class PluginCore extends JavaPlugin {
         for (String message : messages) {
             logger.info(message);
         }
+    }
+
+    public static OfflinePlayer getOfflinePlayer(@NonNull String name) {
+        final Player player = Bukkit.getPlayer(name);
+        if(player != null) return player;
+
+        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+            if(offlinePlayer.getName().equalsIgnoreCase(name)) {
+                return offlinePlayer;
+            }
+        }
+        return null;
     }
 }
