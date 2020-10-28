@@ -28,6 +28,7 @@ public class MessageProvider implements Configuration<String> {
           .getString(args[1]);
     }
 
+    @Override
     public String getEntry(@NonNull String path, String[] replaces) {
         String entry = getEntry(path);
         int next = 1;
