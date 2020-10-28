@@ -11,6 +11,7 @@ public class MessageProvider implements Configuration<String> {
 
     @Getter
     private final FileConfiguration configuration;
+
     public MessageProvider(File file) {
         this.configuration = YamlConfiguration.loadConfiguration(file);
     }
