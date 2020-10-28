@@ -7,6 +7,8 @@ public interface Configuration<T> {
 
     T getEntry(@NonNull String path);
 
+    T getEntry(@NonNull String path, String[] replaces);
+
     FileConfiguration getConfiguration();
 
 }
