@@ -31,7 +31,6 @@ public abstract class PluginCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        bukkitFrame.registerAdapter(OfflinePlayer.class, PluginCore::getOfflinePlayer);
         this.onPluginEnable();
     }
 
@@ -97,10 +96,10 @@ public abstract class PluginCore extends JavaPlugin {
 
     public static OfflinePlayer getOfflinePlayer(@NonNull String name) {
         final Player player = Bukkit.getPlayer(name);
-        if(player != null) return player;
+        if (player != null) return player;
 
         for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-            if(offlinePlayer.getName().equalsIgnoreCase(name)) {
+            if (offlinePlayer.getName().equalsIgnoreCase(name)) {
                 return offlinePlayer;
             }
         }
