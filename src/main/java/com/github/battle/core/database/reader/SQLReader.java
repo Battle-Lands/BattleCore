@@ -21,16 +21,16 @@ public final class SQLReader {
 
     public String getQuery(@NonNull String path) {
         if (!path.contains(".")) {
-            return getRootParent().getLazyQuery(getPlugin(), path);
+            return getRootParent().getLazyQuery(this.plugin, path);
         }
 
         final String[] constraintPathKeys = path.split("\\.");
-        return getQueryParent(getPlugin(), constraintPathKeys[0])
-          .getLazyQuery(getPlugin(), constraintPathKeys[1]);
+        return getQueryParent(this.plugin, constraintPathKeys[0])
+          .getLazyQuery(this.plugin, constraintPathKeys[1]);
     }
 
     public SQLReaderEntity getRootParent() {
-        return getQueryParent(getPlugin(),"root");
+        return getQueryParent(this.plugin,"root");
     }
 
     public SQLReaderEntity getQueryParent(@NonNull Plugin plugin, @NonNull String parent) {

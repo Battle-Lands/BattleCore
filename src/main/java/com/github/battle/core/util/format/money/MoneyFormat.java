@@ -1,8 +1,14 @@
 package com.github.battle.core.util.format.money;
 
+import lombok.NonNull;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MoneyFormat {
 
@@ -17,5 +23,25 @@ public class MoneyFormat {
         if (number == 0) return FORMAT.format(number);
         int index = (int) (Math.log(number) / LOG);
         return FORMAT.format(number / (double) VALUES[1][index]) + VALUES[0][index];
+    }
+
+    public static double deform(@NonNull String string) {
+        Pattern pattern = Pattern.compile("([A-z]*)([0-9]*)");
+        Matcher matcher = pattern.matcher(string);
+        List<Object> formats = Arrays.asList(VALUES[0]);
+        int i = 0;
+        double value = 0;
+        String charName = null;
+        while (matcher.find()) {
+            if (i == 1) {
+                charName = matcher.group();
+                break;
+            }
+            value = Double.parseDouble(matcher.group());
+            i++;
+        }
+        if (charName == null) return 0;
+        int index = formats.contains(charName) ? formats.indexOf(charName) : 0;
+        return value * (double) VALUES[1][index];
     }
 }

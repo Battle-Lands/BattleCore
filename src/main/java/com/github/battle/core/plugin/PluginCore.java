@@ -77,6 +77,18 @@ public abstract class PluginCore extends JavaPlugin {
         );
     }
 
+    public <T> void registerService(Class<T> clazz, T obj) {
+        servicesManager.register(clazz, obj, this, ServicePriority.Normal);
+    }
+
+    public <T> void registerService(Class<T> clazz, T obj, Plugin plugin) {
+        servicesManager.register(clazz, obj, plugin, ServicePriority.Normal);
+    }
+
+    public <T> void registerService(Class<T> clazz, T obj, Plugin plugin, ServicePriority priority) {
+        servicesManager.register(clazz, obj, plugin, priority);
+    }
+
     public <T> T getService(@NonNull Class<T> clazz) {
         return servicesManager
           .getRegistration(clazz)
