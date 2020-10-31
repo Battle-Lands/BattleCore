@@ -24,7 +24,7 @@ public class Reflection {
         }
     }
 
-    public static void setNonField(Object instance, String fieldName, Object value) {
+    public static void setNonField(@NonNull Object instance, @NonNull String fieldName, Object value) {
         try {
             setField(instance, fieldName, value);
         } catch (Exception exception) {
