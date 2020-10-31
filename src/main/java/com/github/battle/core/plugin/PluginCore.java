@@ -1,6 +1,7 @@
 package com.github.battle.core.plugin;
 
 import com.github.battle.core.common.CredentialRegistry;
+import com.github.battle.core.util.format.date.DateFormat;
 import lombok.Getter;
 import lombok.NonNull;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
@@ -16,6 +17,7 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 @Getter
@@ -31,6 +33,7 @@ public abstract class PluginCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        TimeZone.setDefault(DateFormat.TIMEZONE);
         this.onPluginEnable();
     }
 
