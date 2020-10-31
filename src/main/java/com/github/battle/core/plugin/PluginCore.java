@@ -1,6 +1,7 @@
 package com.github.battle.core.plugin;
 
 import com.github.battle.core.common.CredentialRegistry;
+import com.github.battle.core.util.format.date.DateFormat;
 import lombok.Getter;
 import lombok.NonNull;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
@@ -16,6 +17,7 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 @Getter
@@ -43,7 +45,7 @@ public abstract class PluginCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        bukkitFrame.registerAdapter(OfflinePlayer.class, PluginCore::getOfflinePlayer);
+        TimeZone.setDefault(DateFormat.TIMEZONE);
         this.onPluginEnable();
     }
 
@@ -88,6 +90,18 @@ public abstract class PluginCore extends JavaPlugin {
           this,
           ServicePriority.Normal
         );
+    }
+
+    public <T> void registerService(Class<T> clazz, T obj) {
+        servicesManager.register(clazz, obj, this, ServicePriority.Normal);
+    }
+
+    public <T> void registerService(Class<T> clazz, T obj, Plugin plugin) {
+        servicesManager.register(clazz, obj, plugin, ServicePriority.Normal);
+    }
+
+    public <T> void registerService(Class<T> clazz, T obj, Plugin plugin, ServicePriority priority) {
+        servicesManager.register(clazz, obj, plugin, priority);
     }
 
     public <T> T getService(@NonNull Class<T> clazz) {

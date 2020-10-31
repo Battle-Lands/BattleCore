@@ -21,23 +21,23 @@ public final class SQLReader {
 
     public String getQuery(@NonNull String path) {
         if (!path.contains(".")) {
-            return getRootParent().getLazyQuery(path);
+            return getRootParent().getLazyQuery(this.plugin, path);
         }
 
         final String[] constraintPathKeys = path.split("\\.");
-        return getQueryParent(constraintPathKeys[0])
-          .getLazyQuery(constraintPathKeys[1]);
+        return getQueryParent(this.plugin, constraintPathKeys[0])
+          .getLazyQuery(this.plugin, constraintPathKeys[1]);
     }
 
     public SQLReaderEntity getRootParent() {
-        return getQueryParent("root");
+        return getQueryParent(this.plugin,"root");
     }
 
-    public SQLReaderEntity getQueryParent(@NonNull String parent) {
+    public SQLReaderEntity getQueryParent(@NonNull Plugin plugin, @NonNull String parent) {
         SQLReaderEntity sqlReaderEntity = sqlReaderEntities.get(parent);
         if (sqlReaderEntity != null) return sqlReaderEntity;
 
-        sqlReaderEntity = new SQLReaderEntity(plugin, parent);
+        sqlReaderEntity = new SQLReaderEntity(parent);
         sqlReaderEntities.put(parent, sqlReaderEntity);
 
         return sqlReaderEntity;

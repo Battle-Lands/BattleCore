@@ -12,12 +12,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public final class SQLReaderEntity {
 
-    private final Plugin plugin;
     private final String parent;
 
     private final Map<String, String> rootParent = new HashMap<>();
 
-    public String getLazyQuery(@NonNull String path) {
+    public String getLazyQuery(@NonNull Plugin plugin, @NonNull String path) {
         String queryContent = rootParent.get(path);
         if (queryContent != null) return queryContent;
 
