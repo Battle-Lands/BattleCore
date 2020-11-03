@@ -11,6 +11,7 @@ public class MessageProvider implements Configuration<String> {
 
     @Getter
     private final FileConfiguration configuration;
+
     public MessageProvider(File file) {
         this.configuration = YamlConfiguration.loadConfiguration(file);
     }
@@ -29,15 +30,7 @@ public class MessageProvider implements Configuration<String> {
     }
 
     @Override
-    public String getEntry(@NonNull String path, String[] replaces) {
-        String entry = getEntry(path);
-        int next = 1;
-        for (int i = 0; i < replaces.length; i++) {
-            if (i + 1 != next)
-                continue;
-            entry = entry.replace(replaces[i], replaces[next]);
-            next = next + 2;
-        }
-        return entry;
+    public String getEntry(@NonNull String path, Object... replaces) {
+        return String.format(getEntry(path), replaces);
     }
 }

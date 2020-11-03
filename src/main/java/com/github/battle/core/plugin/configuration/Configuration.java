@@ -9,7 +9,7 @@ public interface Configuration<T> {
 
     T getSectionEntry(@NonNull String path);
 
-    T getEntry(@NonNull String path, String[] replaces);
+    T getEntry(@NonNull String path, Object... objects);
 
     FileConfiguration getConfiguration();
 
