@@ -26,6 +26,18 @@ public abstract class PluginCore extends JavaPlugin {
     private final ServicesManager servicesManager = Bukkit.getServicesManager();
     private final BukkitFrame bukkitFrame = new BukkitFrame(this);
 
+    public static OfflinePlayer getOfflinePlayer(@NonNull String name) {
+        final Player player = Bukkit.getPlayer(name);
+        if (player != null) return player;
+
+        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+            if (offlinePlayer.getName().equalsIgnoreCase(name)) {
+                return offlinePlayer;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void onLoad() {
         this.onPluginLoad();
@@ -107,17 +119,5 @@ public abstract class PluginCore extends JavaPlugin {
         for (String message : messages) {
             logger.info(message);
         }
-    }
-
-    public static OfflinePlayer getOfflinePlayer(@NonNull String name) {
-        final Player player = Bukkit.getPlayer(name);
-        if (player != null) return player;
-
-        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-            if (offlinePlayer.getName().equalsIgnoreCase(name)) {
-                return offlinePlayer;
-            }
-        }
-        return null;
     }
 }
